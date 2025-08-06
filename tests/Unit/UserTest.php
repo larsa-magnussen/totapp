@@ -2,19 +2,30 @@
 
 namespace Tests\Unit;
 
+use App\Models\Project;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
+    private User $user;
+    private Project $project;
+    private Project $otherProject;
 
-        $response->assertStatus(200);
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = $this->getUser();
+        $this->project = $this->getProject($this->user);
+        $this->otherProject = $this->getProject($this->user);
+    }
+
+    public function test_has_many_projects(): void
+    {
+        $this->assertTrue($this->user->projects->contains($this->project));
+        $this->assertTrue($this->user->projects->contains($this->otherProject));
     }
 }
