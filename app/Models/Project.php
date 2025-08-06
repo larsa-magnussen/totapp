@@ -32,6 +32,7 @@ class Project extends Model
         return [self::PRIVATE => 'boolean'];
     }
 
+    // relations
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, self::USER_ID, User::ID);
