@@ -16,4 +16,9 @@ trait TestDataGetters
     {
         return Project::factory()->withParents($user)->create();
     }
+
+    public function getPrivateProject(User $user): Project
+    {
+        return Project::factory()->withParents($user)->private()->create();
+    }
 }
