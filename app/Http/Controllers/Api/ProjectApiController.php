@@ -19,7 +19,7 @@ class ProjectApiController extends Controller
     public function index(): ResourceCollection
     {
         $user = Auth::user();
-        $projects = Project::where(Project::USER_ID, $user->{User::ID});
+        $projects = Project::where(Project::USER_ID, $user->{User::ID})->get();
 
         return ProjectResource::collection($projects);
     }
