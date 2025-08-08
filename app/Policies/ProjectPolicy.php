@@ -15,7 +15,7 @@ class ProjectPolicy
     public const STORE = 'store';
     public const SHOW = 'show';
     public const UPDATE = 'update';
-    public const DELETE = 'delete';
+    public const DESTROY = 'destroy';
 
     public function index(User $user): Response
     {
@@ -62,7 +62,7 @@ class ProjectPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Project $project): Response
+    public function destroy(User $user, Project $project): Response
     {
         if ($user->{User::ID} === $project->{Project::USER_ID}) {
             return $this->allow();

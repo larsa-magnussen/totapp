@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProjectDestroyRequest;
 use App\Http\Requests\ProjectShowRequest;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
@@ -48,7 +49,7 @@ class ProjectApiController extends Controller
      */
     public function update(ProjectUpdateRequest $request, Project $project): ProjectResource
     {
-        $project = Project::update($request->validated());
+        $project->update($request->validated());
 
         return ProjectResource::make($project);
     }
@@ -56,9 +57,9 @@ class ProjectApiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project): ProjectResource
+    public function destroy(ProjectDestroyRequest $request, Project $project): ProjectResource
     {
-        $project = $project->delete();
+        $project->delete();
 
         return ProjectResource::make($project);
     }
