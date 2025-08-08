@@ -15,9 +15,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectApiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): ResourceCollection
     {
         $user = Auth::user();
@@ -26,9 +23,6 @@ class ProjectApiController extends Controller
         return ProjectResource::collection($projects);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ProjectStoreRequest $request): ProjectResource
     {
         $project = Project::create($request->validated());
@@ -36,17 +30,11 @@ class ProjectApiController extends Controller
         return ProjectResource::make($project);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(ProjectShowRequest $request, Project $project): ProjectResource
     {
         return ProjectResource::make($project);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ProjectUpdateRequest $request, Project $project): ProjectResource
     {
         $project->update($request->validated());
@@ -54,9 +42,6 @@ class ProjectApiController extends Controller
         return ProjectResource::make($project);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(ProjectDestroyRequest $request, Project $project): ProjectResource
     {
         $project->delete();
