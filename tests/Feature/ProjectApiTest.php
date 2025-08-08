@@ -2,19 +2,32 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ProjectApiTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
+    public function indexRoute(): string
     {
-        $response = $this->get('/');
+        return route('project.index');
+    }
 
-        $response->assertStatus(200);
+    public function storeRoute(): string
+    {
+        return route('project.store');
+    }
+
+    public function showRoute($projectId): string
+    {
+        return route('project.show', ['project' => $projectId]);
+    }
+
+    public function update($projectId): string
+    {
+        return route('project.update', ['project' => $projectId]);
+    }
+
+    public function destroy($projectId): string
+    {
+        return route('project.destroy', ['project' => $projectId]);
     }
 }
