@@ -15,7 +15,7 @@ class Project extends Model
     public const TABLE = 'projects';
 
     public const ID = 'id';
-    public const USER_ID = 'userId';
+    public const USER_ID = 'user_id';
     public const TITLE = 'title';
     public const DESCRIPTION = 'description';
     public const PRIVATE = 'private';
