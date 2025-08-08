@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProjectShowRequest;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Resources\ProjectResource;
@@ -37,7 +38,7 @@ class ProjectApiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project): ProjectResource
+    public function show(ProjectShowRequest $request, Project $project): ProjectResource
     {
         return ProjectResource::make($project);
     }

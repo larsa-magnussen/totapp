@@ -7,14 +7,14 @@ use App\Policies\ProjectPolicy;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class ProjectUpdateRequest extends FormRequest
+class ProjectShowRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Auth::user()->can(ProjectPolicy::UPDATE, [Project::class, $this->route('project')]);
+        return Auth::user()->can(ProjectPolicy::SHOW, [Project::class, $this->route('project')]);
     }
 
     /**
@@ -25,17 +25,7 @@ class ProjectUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            Project::TITLE => [
-                'string',
-                'max:100',
-            ],
-            Project::DESCRIPTION => [
-                'string',
-                'max:500',
-            ],
-            Project::PRIVATE => [
-                'boolean',
-            ],
+            //
         ];
     }
 }
