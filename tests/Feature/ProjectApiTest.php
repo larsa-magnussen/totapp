@@ -18,11 +18,11 @@ class ProjectApiTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = $this->getUser();
-        $this->otherUser = $this->getUser();
-        $this->project = $this->getProject($this->user);
-        $this->otherProject = $this->getProject($this->otherUser);
-        $this->privateProject = $this->getPrivateProject($this->otherUser);
+        $this->user = $this->createUser();
+        $this->otherUser = $this->createUser();
+        $this->project = $this->createProject($this->user);
+        $this->otherProject = $this->createProject($this->otherUser);
+        $this->privateProject = $this->createPrivateProject($this->otherUser);
 
         $this->user->refresh();
     }

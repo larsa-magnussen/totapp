@@ -16,9 +16,9 @@ class UserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = $this->getUser();
-        $this->project = $this->getProject($this->user);
-        $this->otherProject = $this->getProject($this->user);
+        $this->user = $this->createUser();
+        $this->project = $this->createProject($this->user);
+        $this->otherProject = $this->createProject($this->user);
     }
 
     public function test_has_many_projects(): void

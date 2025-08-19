@@ -15,8 +15,8 @@ class ProjectTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = $this->getUser();
-        $this->project = $this->getProject($this->user);
+        $this->user = $this->createUser();
+        $this->project = $this->createProject($this->user);
     }
 
     public function test_belongs_to_user(): void
