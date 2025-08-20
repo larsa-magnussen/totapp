@@ -19,9 +19,9 @@ class UserResource extends JsonResource
             'id' => $this->{User::ID},
             'name' => $this->{User::NAME},
             'email' => $this->{User::EMAIL},
-            'email_verivied_at' => $this->{User::EMAIL_VERIFIED_AT},
-            'created_at' => $this->{User::CREATED_AT},
-            'updated_at' =>  $this->{User::UPDATED_AT},
+            'emailVerifiedAt' => $this->{User::EMAIL_VERIFIED_AT},
+            'createdAt' => $this->{User::CREATED_AT},
+            'updatedAt' =>  $this->{User::UPDATED_AT},
         ];
     }
 }

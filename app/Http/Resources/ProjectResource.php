@@ -20,10 +20,11 @@ class ProjectResource extends JsonResource
             'title' => $this->{Project::TITLE},
             'description' => $this->{Project::DESCRIPTION},
             'private' => $this->{Project::PRIVATE},
-            'created_at' => $this->{Project::CREATED_AT},
-            'updated_at' => $this->{Project::UPDATED_AT},
-            'deleted_at' => $this->{Project::DELETED_AT},
+            'createdAt' => $this->{Project::CREATED_AT},
+            'updatedAt' => $this->{Project::UPDATED_AT},
+            'deletedAt' => $this->{Project::DELETED_AT},
             'user' => UserResource::make($this->whenLoaded('user')),
+            'taskLists' => TaskListResource::collection($this->whenLoaded('taskLists')),
         ];
     }
 }
