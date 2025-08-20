@@ -16,10 +16,10 @@ class TaskListResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => TaskList::ID,
-            'title' => TaskList::TITLE,
-            'createdAt' => TaskList::CREATED_AT,
-            'updatedAt' => TaskList::UPDATED_AT,
+            'id' => $this->{TaskList::ID},
+            'title' => $this->{TaskList::TITLE},
+            'createdAt' => $this->{TaskList::CREATED_AT},
+            'updatedAt' => $this->{TaskList::UPDATED_AT},
             'project' => ProjectResource::make($this->whenLoaded('project')),
         ];
     }
