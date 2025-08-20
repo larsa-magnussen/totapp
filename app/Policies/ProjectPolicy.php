@@ -22,9 +22,6 @@ class ProjectPolicy
         return $this->allow();
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
     public function store(User $user): Response
     {
         if ($user) {
@@ -47,9 +44,6 @@ class ProjectPolicy
         return $this->deny('You don\'t have access to this project');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
     public function update(User $user, Project $project): Response
     {
         if ($user->{User::ID} === $project->{Project::USER_ID}) {
@@ -59,9 +53,6 @@ class ProjectPolicy
         return $this->deny();
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
     public function destroy(User $user, Project $project): Response
     {
         if ($user->{User::ID} === $project->{Project::USER_ID}) {
