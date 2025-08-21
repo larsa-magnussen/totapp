@@ -146,5 +146,4 @@ class TaskListApiTest extends TestCase
             ->assertUnprocessable()
             ->assertInvalid(TaskList::TITLE);
     }
-
 }
