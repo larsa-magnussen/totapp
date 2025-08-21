@@ -146,4 +146,42 @@ class TaskListApiTest extends TestCase
             ->assertUnprocessable()
             ->assertInvalid(TaskList::TITLE);
     }
+
+    // update
+    public function test_user_can_update_task_list(): void
+    {
+        $projectId = $this->project->{Project::ID};
+        $data = [
+            TaskList::TITLE => 'a new title',
+        ];
+
+        $this->patchAsUser($this->user, $this->updateRoute($projectId, $this->taskList->{TaskList::ID}), $data)
+            ->assertOk();
+
+        $this->assertDatabaseHas(TaskList::TABLE, $data);
+    }
+
+    public function test_update_task_list_validation_title_is_string(): void
+    {
+        $projectId = $this->project->{Project::ID};
+        $data = [
+            TaskList::TITLE => 123123,
+        ];
+
+        $this->patchAsUser($this->user, $this->updateRoute($projectId, $this->taskList->{TaskList::ID}), $data)
+            ->assertUnprocessable()
+            ->assertInvalid(TaskList::TITLE);
+    }
+
+    public function test_update_task_list_validation_title_max_length(): void
+    {
+        $projectId = $this->project->{Project::ID};
+        $data = [
+            TaskList::TITLE => str_repeat('a', 256),
+        ];
+
+        $this->patchAsUser($this->user, $this->updateRoute($projectId, $this->taskList->{TaskList::ID}), $data)
+            ->assertUnprocessable()
+            ->assertInvalid(TaskList::TITLE);
+    }
 }
