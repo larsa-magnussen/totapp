@@ -20,12 +20,11 @@ class TaskListApiController extends Controller
         return TaskListResource::collection($taskLists);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(TaskListStoreRequest $request, Project $project)
     {
-        //
+        $taskList = TaskList::create($request->validated());
+
+        return TaskListResource::make($taskList);
     }
 
     /**
