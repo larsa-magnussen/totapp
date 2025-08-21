@@ -35,12 +35,11 @@ class TaskListApiController extends Controller
     //     //
     // }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(TaskListUpdateRequest $request, Project $project, TaskList $taskList)
     {
-        //
+        $taskList->update($request->validated());
+
+        return TaskListResource::make($taskList);
     }
 
     /**

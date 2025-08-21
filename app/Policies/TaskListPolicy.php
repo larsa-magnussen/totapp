@@ -39,7 +39,7 @@ class TaskListPolicy
 
     public function update(User $user, Project $project, TaskList $taskList): Response
     {
-        return $this->deny();
+        return $this->index($user, $project);
     }
 
     public function delete(User $user, Project $project, TaskList $taskList): Response
