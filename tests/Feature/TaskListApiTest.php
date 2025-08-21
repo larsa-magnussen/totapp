@@ -82,4 +82,69 @@ class TaskListApiTest extends TestCase
             ->assertOk()
             ->assertDontSee($this->otherProjectTaskList->{TaskList::TITLE});
     }
+
+    // store
+    public function test_user_can_store_task_list(): void
+    {
+        $projectId = $this->project->{Project::ID};
+        $data = [
+            TaskList::PROJECT_ID => $projectId,
+            TaskList::TITLE => 'this is a title for sure',
+        ];
+
+        $this->postAsUser($this->user, $this->storeRoute($projectId), $data)
+            ->assertCreated();
+        
+        $this->assertDatabaseHas(TaskList::TABLE, $data);
+    }
+
+    public function test_store_task_list_validation_project_id_is_required(): void
+    {
+        $data = [
+            TaskList::TITLE => 'this is a title for sure',
+        ];
+
+        $this->postAsUser($this->user, $this->storeRoute($this->project->{Project::ID}), $data)
+            ->assertUnprocessable()
+            ->assertInvalid(TaskList::PROJECT_ID);
+    }
+
+    public function test_store_task_list_validaiton_project_id_is_integer(): void
+    {
+        $data = [
+            TaskList::PROJECT_ID => 'not an integer',
+            TaskList::TITLE => 'this is a title for sure',
+        ];
+
+        $this->postAsUser($this->user, $this->storeRoute($this->project->{Project::ID}), $data)
+            ->assertUnprocessable()
+            ->assertInvalid(TaskList::PROJECT_ID);
+    }
+
+    public function test_store_task_list_validation_title_is_string(): void
+    {
+        $projectId = $this->project->{Project::ID};
+        $data = [
+            TaskList::PROJECT_ID => $projectId,
+            TaskList::TITLE => 123123,
+        ];
+
+        $this->postAsUser($this->user, $this->storeRoute($projectId), $data)
+            ->assertUnprocessable()
+            ->assertInvalid(TaskList::TITLE);
+    }
+
+    public function test_store_task_list_validation_title_max_length(): void
+    {
+        $projectId = $this->project->{Project::ID};
+        $data = [
+            TaskList::PROJECT_ID => $projectId,
+            TaskList::TITLE => str_repeat('a', 256),
+        ];
+
+        $this->postAsUser($this->user, $this->storeRoute($projectId), $data)
+            ->assertUnprocessable()
+            ->assertInvalid(TaskList::TITLE);
+    }
+
 }
