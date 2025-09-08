@@ -7,11 +7,11 @@ use App\Policies\TaskListPolicy;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class TaskListUpdateRequest extends FormRequest
+class TaskListDestroyRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return Auth::user()->can(TaskListPolicy::UPDATE, [TaskList::class, $this->route('project'), $this->route('task_list')]);
+        return Auth::user()->can(TaskListPolicy::DESTROY, [TaskList::class, $this->route('project'), $this->route('task_list')]);
     }
 
     /**
@@ -22,10 +22,7 @@ class TaskListUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            TaskList::TITLE => [
-                'string',
-                'max: 255',
-            ],
+            //
         ];
     }
 }

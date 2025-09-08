@@ -14,10 +14,9 @@ class TaskListApiTest extends TestCase
     private Project $project;
     private Project $otherProject;
     private Project $otherUserProject;
-    private Project $privateProject;
     private TaskList $taskList;
-    private TaskList $otherTaskList;
     private TaskList $otherProjectTaskList;
+    private TaskList $otherUserTaskList;
 
     protected function setUp(): void
     {
@@ -28,10 +27,9 @@ class TaskListApiTest extends TestCase
         $this->project = $this->createProject($this->user);
         $this->otherProject = $this->createProject($this->user);
         $this->otherUserProject = $this->createProject($this->otherUser);
-        $this->privateProject = $this->createPrivateProject($this->otherUser);
         $this->taskList = $this->createTaskList($this->project);
-        $this->otherTaskList = $this->createTaskList($this->project);
         $this->otherProjectTaskList = $this->createTaskList($this->otherProject);
+        $this->otherUserTaskList = $this->createTaskList($this->otherUserProject);
 
         $this->user->refresh();
     }
@@ -183,5 +181,28 @@ class TaskListApiTest extends TestCase
         $this->patchAsUser($this->user, $this->updateRoute($projectId, $this->taskList->{TaskList::ID}), $data)
             ->assertUnprocessable()
             ->assertInvalid(TaskList::TITLE);
+    }
+
+    // destroy
+    public function test_user_can_destroy_task_list(): void
+    {
+        $taskListId = $this->taskList->{TaskList::ID};
+
+        $this->deleteAsUser($this->user, $this->destroyRoute($this->project->{Project::ID}, $taskListId))
+            ->assertOk();
+
+        $this->assertDatabaseMissing(TaskList::TABLE, [TaskList::ID => $taskListId]);
+    }
+
+    public function test_user_can_not_destroy_other_user_task_list(): void
+    {
+        $this->deleteAsUser($this->user, $this->destroyRoute($this->otherUserProject->{Project::ID}, $this->otherUserTaskList->{TaskList::ID}))
+            ->assertForbidden();
+    }
+
+    public function test_user_can_not_destroy_task_list_not_part_of_project(): void
+    {
+        $this->deleteAsUser($this->user, $this->destroyRoute($this->project->{Project::ID}, $this->otherProjectTaskList->{TaskList::ID}))
+            ->assertForbidden();
     }
 }

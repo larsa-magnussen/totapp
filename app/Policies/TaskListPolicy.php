@@ -39,11 +39,15 @@ class TaskListPolicy
 
     public function update(User $user, Project $project, TaskList $taskList): Response
     {
-        return $this->index($user, $project);
+        if ($this->index($user, $project)->allowed() && $project->{Project::ID} === $taskList->{TaskList::PROJECT_ID}) {
+            return $this->allow();
+        }
+
+        return $this->deny();
     }
 
-    public function delete(User $user, Project $project, TaskList $taskList): Response
+    public function destroy(User $user, Project $project, TaskList $taskList): Response
     {
-        return $this->deny();
+        return $this->update($user, $project, $taskList);
     }
 }
