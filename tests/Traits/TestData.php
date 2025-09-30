@@ -4,6 +4,7 @@ namespace Tests\Traits;
 
 use App\Models\Project;
 use App\Models\TaskList;
+use App\Models\TaskListTask;
 use App\Models\User;
 
 trait TestData
@@ -29,5 +30,11 @@ trait TestData
     public function createTaskList(Project $project): TaskList
     {
         return TaskList::factory()->withParents($project)->create();
+    }
+
+    //task list tasks
+    public function createTaskListTask(TaskList $taskList): TaskListTask
+    {
+        return TaskListTask::factory()->withParents($taskList)->create();
     }
 }
