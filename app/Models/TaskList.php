@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TaskList extends Model
 {
@@ -26,5 +27,10 @@ class TaskList extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class, self::PROJECT_ID, Project::ID);
+    }
+
+    public function taskListTasks(): HasMany
+    {
+        return $this->hasMany(TaskListTask::class, TaskListTask::TASK_LIST_ID, self::ID);
     }
 }
