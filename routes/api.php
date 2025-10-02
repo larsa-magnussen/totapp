@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ProjectApiController;
 use App\Http\Controllers\Api\TaskListApiController;
+use App\Http\Controllers\Api\TaskListTaskApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,3 +12,4 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('/project', ProjectApiController::class);
 Route::apiResource('/project.task-list', TaskListApiController::class);
+Route::apiResource('/project.task-list.task-list-task', TaskListTaskApiController::class);
