@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskListIndexRequest;
 use App\Models\TaskListTask;
-use App\Http\Requests\TaskListStoreRequest;
+use App\Http\Requests\TaskListTaskStoreRequest;
 use App\Http\Resources\TaskListTaskResource;
 use App\Models\Project;
 use App\Models\TaskList;
@@ -20,9 +20,11 @@ class TaskListTaskApiController extends Controller
         return TaskListTaskResource::collection($tasks);
     }
 
-    public function store(TaskListStoreRequest $request, Project $project, TaskList $taskList)
+    public function store(TaskListTaskStoreRequest $request, Project $project, TaskList $taskList): TaskListTaskResource
     {
-        //
+        $task = TaskListTask::create($request->validated());
+
+        return TaskListTaskResource::make($task);
     }
 
     public function destroy(TaskListTask $taskListTask, Project $project, TaskList $taskList)

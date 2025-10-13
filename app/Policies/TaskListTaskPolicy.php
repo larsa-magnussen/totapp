@@ -27,9 +27,9 @@ class TaskListTaskPolicy
         return $this->deny();
     }
 
-    public function store(User $user, Project $project, TaskList $taskList, TaskListTask $taskListTask): bool
+    public function store(User $user, Project $project, TaskList $taskList, TaskListTask $taskListTask): Response
     {
-        return false;
+        return $this->index($user, $project, $taskList);
     }
 
     public function destroy(User $user, Project $project, TaskList $taskList, TaskListTask $taskListTask): bool

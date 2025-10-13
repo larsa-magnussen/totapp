@@ -44,6 +44,11 @@ class TaskListTaskApiTest extends TestCase
         return route('project.task-list.task-list-task.index', ['project' => $projectId, 'task_list' => $taskListId]);
     }
 
+    public function storeRoute($projectId, $taskListId): string
+    {
+        return route('project.task-list.task-list-task.store', ['project' => $projectId, 'task_list' => $taskListId]);
+    }
+
     // index
     public function test_user_can_index_task_list_tasks(): void
     {
@@ -64,5 +69,11 @@ class TaskListTaskApiTest extends TestCase
         $this->getAsUser($this->user, $this->indexRoute($this->otherProject->{Project::ID}, $this->otherProjectTaskList->{TaskList::ID}))
             ->assertOk()
             ->assertDontSee($this->taskListTask->{TaskListTask::DESCRIPTION});
+    }
+
+    // store
+    public function test_user_can_store_task_list_task(): void
+    {
+
     }
 }
