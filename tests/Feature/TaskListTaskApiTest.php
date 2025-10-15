@@ -74,6 +74,34 @@ class TaskListTaskApiTest extends TestCase
     // store
     public function test_user_can_store_task_list_task(): void
     {
+        $data = [TaskListTask::DESCRIPTION => 'description'];
+        $this->postAsUser($this->user, $this->storeRoute($this->project->{Project::ID}, $this->taskList->{TaskList::ID}), $data)
+            ->assertCreated();
 
+        $this->assertDatabaseHas(TaskListTask::TABLE, $data);
+    }
+
+    public function test_store_task_list_task_validation_description_is_required(): void
+    {
+        $data = [];
+        $this->postAsUser($this->user, $this->storeRoute($this->project->{Project::ID}, $this->taskList->{TaskList::ID}), $data)
+            ->assertUnprocessable()
+            ->assertInvalid(TaskListTask::DESCRIPTION);
+    }
+
+    public function test_store_task_list_task_validation_description_is_string(): void
+    {
+        $data = [TaskListTask::DESCRIPTION => 123123];
+        $this->postAsUser($this->user, $this->storeRoute($this->project->{Project::ID}, $this->taskList->{TaskList::ID}), $data)
+            ->assertUnprocessable()
+            ->assertInvalid(TaskListTask::DESCRIPTION);
+    }
+
+    public function test_store_task_list_task_validation_description_max_length(): void
+    {
+        $data = [TaskListTask::DESCRIPTION => str_repeat('a', 151)];
+        $this->postAsUser($this->user, $this->storeRoute($this->project->{Project::ID}, $this->taskList->{TaskList::ID}), $data)
+            ->assertUnprocessable()
+            ->assertInvalid(TaskListTask::DESCRIPTION);
     }
 }

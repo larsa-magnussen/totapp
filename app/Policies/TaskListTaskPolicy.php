@@ -27,7 +27,7 @@ class TaskListTaskPolicy
         return $this->deny();
     }
 
-    public function store(User $user, Project $project, TaskList $taskList, TaskListTask $taskListTask): Response
+    public function store(User $user, Project $project, TaskList $taskList): Response
     {
         return $this->index($user, $project, $taskList);
     }

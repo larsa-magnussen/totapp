@@ -37,7 +37,7 @@ class TaskListTaskStoreRequest extends FormRequest
     public function validated($key = null, $default = null): array
     {
         return array_merge(parent::validated(), [
-            TaskListTask::TASK_LIST_ID => $this->route('task_list')
+            TaskListTask::TASK_LIST_ID => $this->route('task_list')->{TaskList::ID}
         ]);
     }
 }
