@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskListIndexRequest;
+use App\Http\Requests\TaskListTaskDestroyRequest;
 use App\Models\TaskListTask;
 use App\Http\Requests\TaskListTaskStoreRequest;
 use App\Http\Resources\TaskListTaskResource;
@@ -27,9 +28,11 @@ class TaskListTaskApiController extends Controller
         return TaskListTaskResource::make($task);
     }
 
-    public function destroy(TaskListTask $taskListTask, Project $project, TaskList $taskList)
+    public function destroy(TaskListTaskDestroyRequest $request, Project $project, TaskList $taskList, TaskListTask $taskListTask): TaskListTaskResource
     {
-        //
+        $taskListTask->delete();
+
+        return TaskListTaskResource::make($taskListTask);
     }
 
     public function complete(TaskListTask $taskListTask, Project $project, TaskList $taskList)

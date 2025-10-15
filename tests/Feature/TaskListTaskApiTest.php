@@ -49,6 +49,11 @@ class TaskListTaskApiTest extends TestCase
         return route('project.task-list.task-list-task.store', ['project' => $projectId, 'task_list' => $taskListId]);
     }
 
+    public function destroyRoute($projectId, $taskListId, $taskListTaskId): string
+    {
+        return route('project.task-list.task-list-task.destroy', ['project' => $projectId, 'task_list' => $taskListId, 'task_list_task' => $taskListTaskId]);
+    }
+
     // index
     public function test_user_can_index_task_list_tasks(): void
     {
@@ -103,5 +108,30 @@ class TaskListTaskApiTest extends TestCase
         $this->postAsUser($this->user, $this->storeRoute($this->project->{Project::ID}, $this->taskList->{TaskList::ID}), $data)
             ->assertUnprocessable()
             ->assertInvalid(TaskListTask::DESCRIPTION);
+    }
+
+    // destroy
+    public function test_user_can_destroy_task_list_task(): void
+    {
+        $url = $this->destroyRoute($this->project->{Project::ID}, $this->taskList->{TaskList::ID}, $this->taskListTask->{TaskListTask::ID});
+        $this->deleteAsUser($this->user, $url)
+            ->assertOk();
+
+        $this->assertSoftDeleted(TaskListTask::TABLE, [
+            TaskListTask::ID => $this->taskListTask->{TaskListTask::ID},
+            TaskListTask::DESCRIPTION => $this->taskListTask->{TaskListTask::DESCRIPTION},
+        ]);
+    }
+
+    public function test_user_can_not_destroy_other_user_task_list_task(): void
+    {
+        $url = $this->destroyRoute($this->project->{Project::ID}, $this->taskList->{TaskList::ID}, $this->taskListTask->{TaskListTask::ID});
+        $this->deleteAsUser($this->otherUser, $url)
+            ->assertForbidden();
+
+        $this->assertNotSoftDeleted(TaskListTask::TABLE, [
+            TaskListTask::ID => $this->taskListTask->{TaskListTask::ID},
+            TaskListTask::DESCRIPTION => $this->taskListTask->{TaskListTask::DESCRIPTION},
+        ]);
     }
 }
