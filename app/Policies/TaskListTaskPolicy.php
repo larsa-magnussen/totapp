@@ -41,8 +41,8 @@ class TaskListTaskPolicy
         return $this->deny();
     }
 
-    public function complete(User $user, Project $project, TaskList $taskList, TaskListTask $taskListTask): bool
+    public function complete(User $user, Project $project, TaskList $taskList, TaskListTask $taskListTask): Response
     {
-        return false;
+        return $this->destroy($user, $project, $taskList, $taskListTask);
     }
 }

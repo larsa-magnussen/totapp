@@ -92,7 +92,7 @@ class TaskListApiTest extends TestCase
 
         $this->postAsUser($this->user, $this->storeRoute($projectId), $data)
             ->assertCreated();
-        
+
         $this->assertDatabaseHas(TaskList::TABLE, $data);
     }
 

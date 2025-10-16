@@ -31,16 +31,16 @@ class TaskListTaskFactory extends Factory
         });
     }
 
-    public function completed(TaskList $taskList): TaskListTaskFactory
+    public function completed(): TaskListTaskFactory
     {
-        return $this->state(function () use ($taskList) {
+        return $this->state(function () {
             return [TaskListTask::COMPLETED_AT => Carbon::now()];
         });
     }
 
-    public function deleted(TaskList $taskList): TaskListTaskFactory
+    public function deleted(): TaskListTaskFactory
     {
-        return $this->state(function () use ($taskList) {
+        return $this->state(function () {
             return [TaskListTask::DELETED_AT => Carbon::now()];
         });
     }

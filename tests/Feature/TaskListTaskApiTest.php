@@ -14,12 +14,10 @@ class TaskListTaskApiTest extends TestCase
     private User $otherUser;
     private Project $project;
     private Project $otherProject;
-    private Project $otherUserProject;
     private TaskList $taskList;
     private TaskList $otherProjectTaskList;
-    private TaskList $otherUserTaskList;
     private TaskListTask $taskListTask;
-    private TaskListTask $otherTaskListTask;
+    private TaskListTask $completedTaskListTask;
 
     protected function setUp(): void
     {
@@ -29,12 +27,10 @@ class TaskListTaskApiTest extends TestCase
         $this->otherUser = $this->createUser();
         $this->project = $this->createProject($this->user);
         $this->otherProject = $this->createProject($this->user);
-        $this->otherUserProject = $this->createProject($this->otherUser);
         $this->taskList = $this->createTaskList($this->project);
         $this->otherProjectTaskList = $this->createTaskList($this->otherProject);
-        $this->otherUserTaskList = $this->createTaskList($this->otherUserProject);
         $this->taskListTask = $this->createTaskListTask($this->taskList);
-        $this->otherTaskListTask = $this->createTaskListTask($this->otherProjectTaskList);
+        $this->completedTaskListTask = $this->createCompletedTaskListTask($this->taskList);
 
         $this->user->refresh();
     }
@@ -51,7 +47,20 @@ class TaskListTaskApiTest extends TestCase
 
     public function destroyRoute($projectId, $taskListId, $taskListTaskId): string
     {
-        return route('project.task-list.task-list-task.destroy', ['project' => $projectId, 'task_list' => $taskListId, 'task_list_task' => $taskListTaskId]);
+        return route('project.task-list.task-list-task.destroy', [
+            'project' => $projectId,
+            'task_list' => $taskListId,
+            'task_list_task' => $taskListTaskId
+        ]);
+    }
+
+    public function completeRoute($projectId, $taskListId, $taskListTaskId): string
+    {
+        return route('project.task-list.task-list-task.complete', [
+            'project' => $projectId,
+            'task_list' => $taskListId,
+            'task_list_task' => $taskListTaskId
+        ]);
     }
 
     // index
@@ -133,5 +142,37 @@ class TaskListTaskApiTest extends TestCase
             TaskListTask::ID => $this->taskListTask->{TaskListTask::ID},
             TaskListTask::DESCRIPTION => $this->taskListTask->{TaskListTask::DESCRIPTION},
         ]);
+    }
+
+    // complete
+    public function test_user_can_complete_task_list_task(): void
+    {
+        $url = $this->completeRoute($this->project->{Project::ID}, $this->taskList->{TaskList::ID}, $this->taskListTask->{TaskListTask::ID});
+        $this->patchAsUser($this->user, $url);
+
+        $this->taskListTask->refresh();
+
+        $this->assertNotNull($this->taskListTask->{TaskListTask::COMPLETED_AT});
+    }
+
+    public function test_user_can_reverse_completed_task_list_task(): void
+    {
+        $url = $this->completeRoute($this->project->{Project::ID}, $this->taskList->{TaskList::ID}, $this->completedTaskListTask->{TaskListTask::ID});
+        $this->patchAsUser($this->user, $url);
+
+        $this->taskListTask->refresh();
+
+        $this->assertNull($this->taskListTask->{TaskListTask::COMPLETED_AT});
+    }
+
+    public function test_user_can_not_complete_other_user_task_list_task(): void
+    {
+        $url = $this->completeRoute($this->project->{Project::ID}, $this->taskList->{TaskList::ID}, $this->taskListTask->{TaskListTask::ID});
+        $this->deleteAsUser($this->otherUser, $url)
+            ->assertForbidden();
+
+        $this->taskListTask->refresh();
+
+        $this->assertNull($this->taskListTask->{TaskListTask::COMPLETED_AT});
     }
 }

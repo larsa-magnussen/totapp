@@ -37,4 +37,9 @@ trait TestData
     {
         return TaskListTask::factory()->withParents($taskList)->create();
     }
+
+    public function createCompletedTaskListTask(TaskList $taskList): TaskListTask
+    {
+        return TaskListTask::factory()->withParents($taskList)->completed()->create();
+    }
 }
