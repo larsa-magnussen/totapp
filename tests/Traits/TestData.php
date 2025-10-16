@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use App\Models\Notepad;
 use App\Models\Project;
 use App\Models\TaskList;
 use App\Models\TaskListTask;
@@ -32,7 +33,7 @@ trait TestData
         return TaskList::factory()->withParents($project)->create();
     }
 
-    //task list tasks
+    // task list tasks
     public function createTaskListTask(TaskList $taskList): TaskListTask
     {
         return TaskListTask::factory()->withParents($taskList)->create();
@@ -41,5 +42,11 @@ trait TestData
     public function createCompletedTaskListTask(TaskList $taskList): TaskListTask
     {
         return TaskListTask::factory()->withParents($taskList)->completed()->create();
+    }
+
+    // notepads
+    public function createNotepad(Project $project): Notepad
+    {
+        return Notepad::factory()->withParents($project)->create();
     }
 }
