@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Notepad;
 use App\Models\Project;
 use App\Models\TaskList;
 use App\Models\User;
@@ -13,6 +14,7 @@ class ProjectTest extends TestCase
     private Project $project;
     private TaskList $taskList;
     private TaskList $otherTaskList;
+    private Notepad $notepad;
 
     protected function setUp(): void
     {
@@ -22,6 +24,7 @@ class ProjectTest extends TestCase
         $this->project = $this->createProject($this->user);
         $this->taskList = $this->createTaskList($this->project);
         $this->otherTaskList = $this->createTaskList($this->project);
+        $this->notepad = $this->createNotepad($this->project);
     }
 
     public function test_belongs_to_user(): void
@@ -35,5 +38,10 @@ class ProjectTest extends TestCase
         $taskLists = $this->project->taskLists;
         $this->assertTrue($taskLists->contains($this->taskList));
         $this->assertTrue($taskLists->contains($this->otherTaskList));
+    }
+
+    public function test_has_one_notepad(): void
+    {
+        $this->assertInstanceOf(Notepad::class, $this->notepad);
     }
 }
