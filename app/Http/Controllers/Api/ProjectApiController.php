@@ -8,6 +8,7 @@ use App\Http\Requests\ProjectShowRequest;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Resources\ProjectResource;
+use App\Models\Notepad;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -26,6 +27,10 @@ class ProjectApiController extends Controller
     public function store(ProjectStoreRequest $request): ProjectResource
     {
         $project = Project::create($request->validated());
+
+        Notepad::create([Notepad::PROJECT_ID => $project->{Project::ID}]);
+
+        $project->load(['user', 'notepad']);
 
         return ProjectResource::make($project);
     }

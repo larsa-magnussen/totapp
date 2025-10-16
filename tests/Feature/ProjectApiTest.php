@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Notepad;
 use App\Models\Project;
 use App\Models\User;
 use Tests\TestCase;
@@ -76,10 +77,11 @@ class ProjectApiTest extends TestCase
             Project::PRIVATE => false,
         ];
 
-        $this->postAsUser($this->user, $this->storeRoute(), $data)
+        $response = $this->postAsUser($this->user, $this->storeRoute(), $data)
             ->assertCreated();
 
         $this->assertDatabaseHas(Project::TABLE, $data);
+        $this->assertDatabaseHas(Notepad::TABLE, [Notepad::PROJECT_ID => $response->json('data.id')]);
     }
 
     public function test_store_project_validation_title_is_required(): void
