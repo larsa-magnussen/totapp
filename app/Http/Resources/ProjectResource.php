@@ -25,6 +25,7 @@ class ProjectResource extends JsonResource
             'deletedAt' => $this->{Project::DELETED_AT},
             'user' => UserResource::make($this->whenLoaded('user')),
             'taskLists' => TaskListResource::collection($this->whenLoaded('taskLists')),
+            'notepad' => NotepadResource::make($this->whenLoaded('notepad')),
         ];
     }
 }
