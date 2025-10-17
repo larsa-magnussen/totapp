@@ -8,7 +8,6 @@ use App\Http\Requests\ProjectShowRequest;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Http\Resources\ProjectResource;
-use App\Models\Notepad;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\ResourceCollection;
