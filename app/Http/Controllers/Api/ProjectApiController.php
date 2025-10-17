@@ -27,8 +27,7 @@ class ProjectApiController extends Controller
     public function store(ProjectStoreRequest $request): ProjectResource
     {
         $project = Project::create($request->validated());
-
-        Notepad::create([Notepad::PROJECT_ID => $project->{Project::ID}]);
+        $project->notepad()->create();
 
         $project->load(['user', 'notepad']);
 
