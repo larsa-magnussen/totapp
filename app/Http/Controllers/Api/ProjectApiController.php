@@ -36,6 +36,8 @@ class ProjectApiController extends Controller
 
     public function show(ProjectShowRequest $request, Project $project): ProjectResource
     {
+        $project->load(['user', 'taskLists.taskListTasks', 'notepad']);
+
         return ProjectResource::make($project);
     }
 
