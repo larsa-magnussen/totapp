@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Notepad;
 use App\Models\Project;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,6 +28,13 @@ class NotepadFactory extends Factory
     {
         return $this->state(function () use ($project) {
             return [Notepad::PROJECT_ID => $project->{Project::ID}];
+        });
+    }
+
+    public function deleted(): NotepadFactory
+    {
+        return $this->state(function () {
+            return [Notepad::DELETED_AT => Carbon::now()];
         });
     }
 }
