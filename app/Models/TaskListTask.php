@@ -12,15 +12,15 @@ class TaskListTask extends Model
     use HasFactory;
     use SoftDeletes;
 
-    public const TABLE = 'task_list_tasks';
+    public const string TABLE = 'task_list_tasks';
 
-    public const ID = 'id';
-    public const TASK_LIST_ID = 'task_list_id';
-    public const DESCRIPTION = 'description';
-    public const CREATED_AT = 'created_at';
-    public const UPDATED_AT = 'updated_at';
-    public const COMPLETED_AT = 'completed_at';
-    public const DELETED_AT = 'deleted_at';
+    public const string ID = 'id';
+    public const string TASK_LIST_ID = 'task_list_id';
+    public const string DESCRIPTION = 'description';
+    public const string CREATED_AT = 'created_at';
+    public const string UPDATED_AT = 'updated_at';
+    public const string COMPLETED_AT = 'completed_at';
+    public const string DELETED_AT = 'deleted_at';
 
     protected $table = self::TABLE;
     protected $guarded = [self::ID];

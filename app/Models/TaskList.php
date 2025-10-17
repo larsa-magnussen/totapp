@@ -11,13 +11,13 @@ class TaskList extends Model
 {
     use HasFactory;
 
-    public const TABLE = 'task_lists';
+    public const string TABLE = 'task_lists';
 
-    public const ID = 'id';
-    public const PROJECT_ID = 'project_id';
-    public const TITLE = 'title';
-    public const CREATED_AT = 'created_at';
-    public const UPDATED_AT = 'updated_at';
+    public const string ID = 'id';
+    public const string PROJECT_ID = 'project_id';
+    public const string TITLE = 'title';
+    public const string CREATED_AT = 'created_at';
+    public const string UPDATED_AT = 'updated_at';
 
     protected $table = self::TABLE;
     protected $guarded = [self::ID];

@@ -15,16 +15,16 @@ class User extends Authenticatable
     use Notifiable;
     use HasApiTokens;
 
-    public const TABLE = 'users';
+    public const string TABLE = 'users';
 
-    public const ID = 'id';
-    public const NAME = 'name';
-    public const EMAIL = 'email';
-    public const EMAIL_VERIFIED_AT = 'email_verified_at';
-    public const PASSWORD = 'password';
-    public const REMEMBER_TOKEN = 'remember_token';
-    public const CREATED_AT = 'created_at';
-    public const UPDATED_AT = 'updated_at';
+    public const string ID = 'id';
+    public const string NAME = 'name';
+    public const string EMAIL = 'email';
+    public const string EMAIL_VERIFIED_AT = 'email_verified_at';
+    public const string PASSWORD = 'password';
+    public const string REMEMBER_TOKEN = 'remember_token';
+    public const string CREATED_AT = 'created_at';
+    public const string UPDATED_AT = 'updated_at';
 
     /**
      * The attributes that are mass assignable.

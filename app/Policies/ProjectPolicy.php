@@ -11,11 +11,11 @@ class ProjectPolicy
 {
     use HandlesAuthorization;
 
-    public const INDEX = 'index';
-    public const STORE = 'store';
-    public const SHOW = 'show';
-    public const UPDATE = 'update';
-    public const DESTROY = 'destroy';
+    public const string INDEX = 'index';
+    public const string STORE = 'store';
+    public const string SHOW = 'show';
+    public const string UPDATE = 'update';
+    public const string DESTROY = 'destroy';
 
     public function index(User $user): Response
     {

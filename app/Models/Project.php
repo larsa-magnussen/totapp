@@ -14,16 +14,16 @@ class Project extends Model
     use HasFactory;
     use SoftDeletes;
 
-    public const TABLE = 'projects';
+    public const string TABLE = 'projects';
 
-    public const ID = 'id';
-    public const USER_ID = 'user_id';
-    public const TITLE = 'title';
-    public const DESCRIPTION = 'description';
-    public const PRIVATE = 'private';
-    public const CREATED_AT = 'created_at';
-    public const UPDATED_AT = 'updated_at';
-    public const DELETED_AT = 'deleted_at';
+    public const string ID = 'id';
+    public const string USER_ID = 'user_id';
+    public const string TITLE = 'title';
+    public const string DESCRIPTION = 'description';
+    public const string PRIVATE = 'private';
+    public const string CREATED_AT = 'created_at';
+    public const string UPDATED_AT = 'updated_at';
+    public const string DELETED_AT = 'deleted_at';
 
     protected $table = self::TABLE;
     protected $guarded = [self::ID];
