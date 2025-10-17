@@ -14,6 +14,7 @@ class ProjectApiTest extends TestCase
     private Project $project;
     private Project $otherProject;
     private Project $privateProject;
+    private Notepad $notepad;
 
     protected function setUp(): void
     {
@@ -24,8 +25,10 @@ class ProjectApiTest extends TestCase
         $this->project = $this->createProject($this->user);
         $this->otherProject = $this->createProject($this->otherUser);
         $this->privateProject = $this->createPrivateProject($this->otherUser);
+        $this->notepad = $this->createNotepad($this->project);
 
         $this->user->refresh();
+        $this->project->refresh();
     }
 
     public function indexRoute(): string
@@ -305,7 +308,14 @@ class ProjectApiTest extends TestCase
         $this->deleteAsUser($this->user, $this->destroyRoute($this->project->{Project::ID}))
             ->assertOk();
 
-        $this->assertDatabaseMissing(Project::TABLE, $this->project->toArray());
+        $this->assertSoftDeleted(Project::TABLE, [
+            Project::ID => $this->project->{Project::ID},
+            Project::USER_ID => $this->project->{Project::USER_ID}
+        ]);
+        $this->assertSoftDeleted(Notepad::TABLE, [
+            Notepad::ID => $this->notepad->{Notepad::ID},
+            Notepad::PROJECT_ID => $this->notepad->{Notepad::PROJECT_ID}
+        ]);
     }
 
     public function test_user_can_not_delete_other_user_project(): void

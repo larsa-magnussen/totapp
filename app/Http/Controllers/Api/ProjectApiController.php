@@ -49,6 +49,7 @@ class ProjectApiController extends Controller
     public function destroy(ProjectDestroyRequest $request, Project $project): ProjectResource
     {
         $project->delete();
+        $project->notepad->delete();
 
         return ProjectResource::make($project);
     }
