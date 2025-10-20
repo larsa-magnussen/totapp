@@ -13,7 +13,7 @@ class {{ class }} extends Model
 
     public const string TABLE = '';
 
-    public const string ID = '';
+    public const string ID = 'id';
 
     protected $table = self::TABLE;
     protected $guarded = [self::ID];
