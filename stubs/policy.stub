@@ -1,0 +1,38 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
+use {{ namespacedModel }};
+use {{ namespacedUserModel }};
+
+class {{ class }}
+{
+    use HandlesAuthorization;
+
+    public function index({{ user }} $user): Response
+    {
+        return $this->deny();
+    }
+
+    public function store({{ user }} $user): Response
+    {
+        return $this->deny();
+    }
+
+    public function show({{ user }} $user, {{ model }} ${{ modelVariable }}): Response
+    {
+        return $this->deny();
+    }
+
+    public function update({{ user }} $user, {{ model }} ${{ modelVariable }}): Response
+    {
+        return $this->deny();
+    }
+
+    public function destroy({{ user }} $user, {{ model }} ${{ modelVariable }}): Response
+    {
+        return $this->deny();
+    }
+}
