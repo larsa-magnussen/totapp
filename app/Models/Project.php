@@ -37,16 +37,16 @@ class Project extends Model
     // relations
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, self::USER_ID, User::ID);
+        return $this->belongsTo(User::class);
     }
 
     public function taskLists(): HasMany
     {
-        return $this->hasMany(TaskList::class, TaskList::PROJECT_ID, self::ID);
+        return $this->hasMany(TaskList::class);
     }
 
     public function notepad(): HasOne
     {
-        return $this->hasOne(Notepad::class, Notepad::PROJECT_ID, self::ID);
+        return $this->hasOne(Notepad::class);
     }
 }

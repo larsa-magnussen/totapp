@@ -29,6 +29,6 @@ class TaskListTask extends Model
     // relations
     public function taskList(): BelongsTo
     {
-        return $this->belongsTo(TaskList::class, self::TASK_LIST_ID, TaskList::ID);
+        return $this->belongsTo(TaskList::class);
     }
 }

@@ -27,6 +27,6 @@ class Notepad extends Model
     // relations
     public function project(): BelongsTo
     {
-        return $this->belongsTo(Project::class, self::PROJECT_ID, Project::ID);
+        return $this->belongsTo(Project::class);
     }
 }

@@ -64,6 +64,6 @@ class User extends Authenticatable
     // relations
     public function projects(): HasMany
     {
-        return $this->hasMany(Project::class, Project::USER_ID, self::ID);
+        return $this->hasMany(Project::class);
     }
 }

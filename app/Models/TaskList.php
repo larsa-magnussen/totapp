@@ -26,11 +26,11 @@ class TaskList extends Model
     // relations
     public function project(): BelongsTo
     {
-        return $this->belongsTo(Project::class, self::PROJECT_ID, Project::ID);
+        return $this->belongsTo(Project::class);
     }
 
     public function taskListTasks(): HasMany
     {
-        return $this->hasMany(TaskListTask::class, TaskListTask::TASK_LIST_ID, self::ID);
+        return $this->hasMany(TaskListTask::class);
     }
 }
