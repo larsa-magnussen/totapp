@@ -37,29 +37,29 @@ class TaskListTaskApiTest extends TestCase
 
     public function indexRoute($projectId, $taskListId): string
     {
-        return route('project.task-list.task-list-task.index', ['project' => $projectId, 'task_list' => $taskListId]);
+        return route('project.task-list.tasks.index', ['project' => $projectId, 'task_list' => $taskListId]);
     }
 
     public function storeRoute($projectId, $taskListId): string
     {
-        return route('project.task-list.task-list-task.store', ['project' => $projectId, 'task_list' => $taskListId]);
+        return route('project.task-list.tasks.store', ['project' => $projectId, 'task_list' => $taskListId]);
     }
 
-    public function destroyRoute($projectId, $taskListId, $taskListTaskId): string
+    public function destroyRoute($projectId, $taskListId, $taskId): string
     {
-        return route('project.task-list.task-list-task.destroy', [
+        return route('project.task-list.tasks.destroy', [
             'project' => $projectId,
             'task_list' => $taskListId,
-            'task_list_task' => $taskListTaskId
+            'task' => $taskId
         ]);
     }
 
-    public function completeRoute($projectId, $taskListId, $taskListTaskId): string
+    public function completeRoute($projectId, $taskListId, $taskId): string
     {
-        return route('project.task-list.task-list-task.complete', [
+        return route('project.task-list.tasks.complete', [
             'project' => $projectId,
             'task_list' => $taskListId,
-            'task_list_task' => $taskListTaskId
+            'task' => $taskId
         ]);
     }
 

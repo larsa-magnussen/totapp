@@ -13,7 +13,7 @@ class TaskListTaskTest extends TestCase
     private User $user;
     private Project $project;
     private TaskList $taskList;
-    private TaskListTask $taskListTask;
+    private TaskListTask $task;
 
     protected function setUp(): void
     {

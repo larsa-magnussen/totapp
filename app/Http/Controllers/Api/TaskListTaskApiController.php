@@ -30,23 +30,23 @@ class TaskListTaskApiController extends Controller
         return TaskListTaskResource::make($task);
     }
 
-    public function destroy(TaskListTaskDestroyRequest $request, Project $project, TaskList $taskList, TaskListTask $taskListTask): TaskListTaskResource
+    public function destroy(TaskListTaskDestroyRequest $request, Project $project, TaskList $taskList, TaskListTask $task): TaskListTaskResource
     {
-        $taskListTask->delete();
+        $task->delete();
 
-        return TaskListTaskResource::make($taskListTask);
+        return TaskListTaskResource::make($task);
     }
 
-    public function complete(TaskListTaskCompleteRequest $request, Project $project, TaskList $taskList, TaskListTask $taskListTask)
+    public function complete(TaskListTaskCompleteRequest $request, Project $project, TaskList $taskList, TaskListTask $task)
     {
-        if ($taskListTask->{TaskListTask::COMPLETED_AT}) {
-            $taskListTask->update([TaskListTask::COMPLETED_AT => null]);
+        if ($task->{TaskListTask::COMPLETED_AT}) {
+            $task->update([TaskListTask::COMPLETED_AT => null]);
 
-            return TaskListTaskResource::make($taskListTask);
+            return TaskListTaskResource::make($task);
         }
 
-        $taskListTask->update([TaskListTask::COMPLETED_AT => Carbon::now()]);
+        $task->update([TaskListTask::COMPLETED_AT => Carbon::now()]);
 
-        return TaskListTaskResource::make($taskListTask);
+        return TaskListTaskResource::make($task);
     }
 }

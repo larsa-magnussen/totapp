@@ -32,17 +32,17 @@ class TaskListTaskPolicy
         return $this->index($user, $project, $taskList);
     }
 
-    public function destroy(User $user, Project $project, TaskList $taskList, TaskListTask $taskListTask): Response
+    public function destroy(User $user, Project $project, TaskList $taskList, TaskListTask $task): Response
     {
-        if ($user->{User::ID} === $taskListTask->taskList->project->{Project::USER_ID}) {
+        if ($user->{User::ID} === $task->taskList->project->{Project::USER_ID}) {
             return $this->allow();
         }
 
         return $this->deny();
     }
 
-    public function complete(User $user, Project $project, TaskList $taskList, TaskListTask $taskListTask): Response
+    public function complete(User $user, Project $project, TaskList $taskList, TaskListTask $task): Response
     {
-        return $this->destroy($user, $project, $taskList, $taskListTask);
+        return $this->destroy($user, $project, $taskList, $task);
     }
 }

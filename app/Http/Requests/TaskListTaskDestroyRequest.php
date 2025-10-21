@@ -18,7 +18,7 @@ class TaskListTaskDestroyRequest extends FormRequest
             TaskListTask::class,
             $this->route('project'),
             $this->route('task_list'),
-            $this->route('task_list_task')
+            $this->route('task')
         ]);
     }
 
